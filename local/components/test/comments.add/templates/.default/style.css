@@ -1,0 +1,30 @@
+.comment-add__label{
+    display: block;
+}
+.comment-add__input{
+    display: block;
+    resize: none;
+    width: 100%;
+    min-height: 150px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+.comment-add__submit{
+    text-align: right;
+}
+
+.rating-stars{
+    display: flex;
+}
+.rating-stars__item{
+    display: block;
+    padding: 0 3px;
+    background: transparent;
+    font-size: 18px;
+    color: #bbb;
+    border: none;
+}
+
+.rating-stars__item_selected{
+    color:#e5cb4b
+}
