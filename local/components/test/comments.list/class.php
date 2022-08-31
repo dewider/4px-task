@@ -80,14 +80,6 @@ class CommentsListComponent extends CBitrixComponent implements Controllerable
                 $sortDirect = 'asc';
         }
 
-        $this->arResult['NAV'] = new PageNavigation("nav-comments");
-        $this->arResult['NAV']->setPageSize($this->arParams['COMMENTS_COUNT']);
-        if(isset($_REQUEST['page']) && intval($_REQUEST['page']) > 0 ){
-            $this->arResult['NAV']->setCurrentPage(intval($_REQUEST['page']));
-        } else {
-            $this->arResult['NAV']->initFromUri();
-        }
-
         $dbItems = $iblockClass::getList([
 			'select' => [
                 'ID','NAME','IBLOCK_ID','DETAIL_TEXT','TIMESTAMP_X','PREVIEW_TEXT',
@@ -135,6 +127,23 @@ class CommentsListComponent extends CBitrixComponent implements Controllerable
 
     public function executeComponent()
     {
+        global $APPLICATION, $USER;
+        
+        $this->arResult['NAV'] = new PageNavigation("nav-comments");
+        $this->arResult['NAV']->setPageSize($this->arParams['COMMENTS_COUNT']);
+        if(isset($_REQUEST['page']) && intval($_REQUEST['page']) > 0 ){
+            $this->arResult['NAV']->setCurrentPage(intval($_REQUEST['page']));
+        } else {
+            $this->arResult['NAV']->initFromUri();
+        }
+
+        $CACHE_ID = SITE_ID . "|" . $APPLICATION->GetCurPage() . "|";
+		foreach ($this->arParams as $k => $v)
+			if (strncmp("~", $k, 1))
+				$CACHE_ID .= "," . $k . "=" . $v;
+		$CACHE_ID .= "|" . $USER->GetGroups()
+			. "|page=" . $this->arResult['NAV']->getCurrentPage();
+
         if ($this->StartResultCache()) {
             $this->getItems();
             $this->includeComponentTemplate();
