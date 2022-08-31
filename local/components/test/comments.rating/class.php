@@ -59,7 +59,7 @@ class CommentsRatingComponent extends CBitrixComponent
 		if ($this->StartResultCache())
 		{
 			$this->getRating();
+			$this->includeComponentTemplate();
 		}
-		$this->includeComponentTemplate();
 	}
 }

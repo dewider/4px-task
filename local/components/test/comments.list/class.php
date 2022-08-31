@@ -137,7 +137,7 @@ class CommentsListComponent extends CBitrixComponent implements Controllerable
     {
         if ($this->StartResultCache()) {
             $this->getItems();
+            $this->includeComponentTemplate();
         }
-        $this->includeComponentTemplate();
     }
 }
