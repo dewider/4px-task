@@ -37,7 +37,6 @@ class CommentsRatingComponent extends CBitrixComponent
 		$dbItems = $iblockClass::getList([
 			'select' => ['ID', 'NAME', 'IBLOCK_ID', 'RATING_' => 'RATING'],
 			'filter' => [
-				'IBLOCK_ID' => $this->arParams['IBLOCK_ID'],
 				'ACTIVE' => 'Y',
 				'>RATING.VALUE' => 0,
 				'ELEMENT_ID.VALUE' => $this->arParams['ELEMENT_ID']

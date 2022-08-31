@@ -96,7 +96,6 @@ class CommentsListComponent extends CBitrixComponent implements Controllerable
                 'USERNAME_' =>'USERNAME'
             ],
 			'filter' => [
-				'IBLOCK_ID' => $this->arParams['IBLOCK_ID'],
 				'ACTIVE' => 'Y',
 				'ELEMENT_ID.VALUE' => $this->arParams['ELEMENT_ID']
 			],
