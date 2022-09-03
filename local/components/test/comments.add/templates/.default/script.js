@@ -86,7 +86,7 @@ class AddCommentForm {
             signedParameters: this.signedParameters,
             data: data
         }).then((response) => {
-            this.printMessage(JSON.parse(response.data).message);
+            this.printMessage(response.data.message);
             document.dispatchEvent(this.sendedEvent);
         }).catch(error => {
             this.printMessage(error.errors[0].message);

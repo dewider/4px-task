@@ -27,9 +27,9 @@ class CommentAddAjaxController extends Controller
         $commentText = htmlspecialchars($_REQUEST['comment-input']);
         $commentRating = intval($_REQUEST['comment-rating']);
 
-        if(empty($commentText)) return json_encode([
+        if(empty($commentText)) return [
             'message' => Loc::getMessage('EMPTY'),
-        ]);
+        ];
 
         $newComment = new CIBlockElement;
         $id = $newComment->Add([
@@ -44,8 +44,8 @@ class CommentAddAjaxController extends Controller
             ]
         ]);
 
-        return json_encode([
+        return [
             'message' => ($id === false) ? $newComment->LAST_ERROR : Loc::getMessage('SUCCESS'),
-        ]);
+        ];
     }
 }

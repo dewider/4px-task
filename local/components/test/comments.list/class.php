@@ -3,7 +3,8 @@ use \Bitrix\Main\Loader,
     \Bitrix\Main\Localization\Loc,
     \Bitrix\Iblock\Iblock,
     \Bitrix\Main\UI\PageNavigation,
-    \Bitrix\Main\Engine\Contract\Controllerable;
+    \Bitrix\Main\Engine\Contract\Controllerable,
+    \Bitrix\Main\Application;
 
 if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 
@@ -39,9 +40,10 @@ class CommentsListComponent extends CBitrixComponent implements Controllerable
     }
 
     public function getAction(){
-        if(intval($_REQUEST['perPage']) > 0) 
-            $this->arParams['COMMENTS_COUNT'] = intval($_REQUEST['perPage']);
-        $this->arParams['SORT'] = htmlspecialchars($_REQUEST['sort']);
+        $request = Application::getInstance()->getContext()->getRequest();
+        if(intval($request->get("perPage")) > 0) 
+            $this->arParams['COMMENTS_COUNT'] = intval($request->get("perPage"));
+        $this->arParams['SORT'] = htmlspecialchars($request->get("sort"));
 
         ob_start();
         $this->executeComponent();
@@ -144,7 +146,7 @@ class CommentsListComponent extends CBitrixComponent implements Controllerable
 		$CACHE_ID .= "|" . $USER->GetGroups()
 			. "|page=" . $this->arResult['NAV']->getCurrentPage();
 
-        if ($this->StartResultCache()) {
+        if ($this->StartResultCache($this->arParams['CACHE_TIME'], $CACHE_ID)) {
             $this->getItems();
             $this->includeComponentTemplate();
         }
